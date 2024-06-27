@@ -46,14 +46,14 @@ sql =
 app.post("/edit_user/:id", (req, res) => {
 	const id = req.params.id;
 	sql =
-		"UPDATE applications SET (`title` =?, `company` =?,`location` =?, `offer` =? ,`description`=?) WHERE `id`= ? ";
+		"UPDATE applications SET `title` =?, `company` =?,`location` =?, `offer` =? ,`description` =? WHERE `id`= ? ";
 	const values = [
 		req.body.title,
 		req.body.company,
 		req.body.location,
 		req.body.offer,
 		req.body.description,
-		id,
+		id
 	];
 	db.query(sql, values, (err, result) => {
 		if (err) {
@@ -79,8 +79,7 @@ app.get("/applications", (req, res) => {
 		}
 		const formattedResults = result.map((item) => ({
 			...item,
-			date: format(new Date(item.date), "PPPPpppp"), // e.g., 'Friday, August 16th, 2019 at 8:30 PM'
-		}));
+			date: format(new Date(item.date), "MMMM d, yyyy, h:mm a"),		}));
 		console.log("data fetched", formattedResults);
 		return res.json(formattedResults);
 	});
