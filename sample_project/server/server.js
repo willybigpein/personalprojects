@@ -36,8 +36,16 @@ app.post("/add_user", (req, res) => {
 
 app.post("/edit_user/:id", (req, res) => {
 	const id = req.params.id;
-	sql = "UPDATE student_details SET (`name` =?, `email` =?,`age` =?, `gender` =?) WHERE `id`= ? ";
-	const values = [req.body.name, req.body.email, req.body.age, req.body.gender,id];
+	sql =
+		"UPDATE student_details SET (`title` =?, `company` =?,`location` =?, `offer` =?, `description` =?) WHERE `id`= ? ";
+	const values = [
+		req.body.title,
+		req.body.company,
+		req.body.location,
+		req.body.offer,
+		req.body.description,
+		id,
+	];
 	db.query(sql, values, (err, result) => {
 		if (err) {
 			console.error("error inserting data", err);
